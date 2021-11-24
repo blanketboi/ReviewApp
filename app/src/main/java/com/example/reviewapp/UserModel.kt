@@ -6,7 +6,7 @@ class UserModel {
     var password : String = ""
     var XP : Int = 0
 
-    constructor(username: String, password: String, XP: Int) {
+    constructor( username: String, password: String, XP: Int) {
         this.username = username
         this.password = password
         this.XP = XP
@@ -15,4 +15,5 @@ class UserModel {
     constructor() {
 
     }
+
 }

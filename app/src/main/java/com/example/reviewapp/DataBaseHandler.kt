@@ -13,17 +13,19 @@ val COLUMN_USERNAME = "USERNAME"
 val COLUMN_PASSWORD = "PASSWORD"
 val COLUMN_XP = "XP"
 
-class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, USER_DATABASE, null, 1) {
-    override fun onCreate(p0: SQLiteDatabase?) {
-        val createTable = "CREATE TABLE " + USER_DATABASE + " (" + COLUMN_ID +  " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_USERNAME + " TEXT, " + COLUMN_PASSWORD + " TEXT, " + COLUMN_XP + " INT)"
-        p0?.execSQL(createTable)
+class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, USER_DATABASE, null, 5) {
+    override fun onCreate(db: SQLiteDatabase?) {
+        val createTable =
+            "CREATE TABLE " + USER_DATABASE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_USERNAME + " TEXT, " + COLUMN_PASSWORD + " TEXT, " + COLUMN_XP + " INT)"
+        db?.execSQL(createTable)
     }
 
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("Not yet implemented")
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        db?.execSQL("DROP TABLE IF EXISTS $USER_DATABASE")
+        onCreate(db)
     }
 
-    fun insertData(user : UserModel) {
+    fun insertData(user: UserModel) {
         val db = this.writableDatabase
         var cv = ContentValues()
         cv.put(COLUMN_USERNAME, user.username)
@@ -37,30 +39,41 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, USER_DAT
         }
     }
 
-    fun readData() : MutableList<UserModel> {
-        var list : MutableList<UserModel> = ArrayList()
+    fun userList(): MutableList<UserModel> {
+        val sql = "select * from $USER_DATABASE"
         val db = this.readableDatabase
-        val query = "Select * from " + USER_DATABASE
-        val result = db.rawQuery(query, null)
-        if(result.moveToFirst()) {
+        val storeUserModel = arrayListOf<UserModel>()
+        val cursor = db.rawQuery(sql, null)
+        if (cursor.moveToFirst()) {
             do {
-                var user = UserModel()
-                user.id = result.getString(result.getColumnIndex(COLUMN_ID)).toInt()
-                user.username = result.getString(result.getColumnIndex(COLUMN_USERNAME))
-                user.password = result.getString(result.getColumnIndex(COLUMN_PASSWORD))
-                user.XP = result.getString(result.getColumnIndex(COLUMN_XP)).toInt()
-                list.add(user)
-            } while (result.moveToNext())
+                val id = Integer.parseInt(cursor.getString(0))
+                val username = cursor.getString(1)
+                val password = cursor.getString(2)
+                val xp = Integer.parseInt(cursor.getString(3))
+                storeUserModel.add(UserModel(username, password, xp))
+            } while (cursor.moveToNext())
         }
-
-        result.close()
-        db.close()
-        return list
+        cursor.close()
+        return storeUserModel
     }
 
-    fun deleteData() {
+    fun findUser(username: String) : UserModel? {
+        val query = "SELECT * FROM $USER_DATABASE WHERE $COLUMN_USERNAME = $username"
         val db = this.writableDatabase
-        db.delete(USER_DATABASE, COLUMN_ID + "=?", arrayOf(1.toString()))
+        var mUser = UserModel? = null
+        val cursor = db.rawQuery(query, null)
+        if (cursor.moveToFirst()) {
+            val id = Integer.parseInt(cursor.getString(0))
+            val username = cursor.getString(1)
+            mUser = UserModel()
+        }
+        cursor.close()
+        return mUser
+    }
+
+    fun deleteUser() {
+        val db = this.writableDatabase
+        db.delete(USER_DATABASE, "$COLUMN_ID =?", arrayOf(id.toString()))
         db.close()
     }
 }

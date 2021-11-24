@@ -6,6 +6,7 @@
     <string name="title">Sign in</string>
     <string name="create">Create Account</string>
     <string name="exists">This account already exists, please login or use a different Username</string>
-    <string name="guest">Guest Login</string>
+    <string name="guest">Guest</string>
     <string name="guestText">Or browse as a Guest</string>
+    <string name="welcomeMessage">Welcome back!</string>
 </resources>

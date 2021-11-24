@@ -29,14 +29,12 @@ class LogIn : AppCompatActivity() {
 
     private fun createUser(username: String, password: String) {
         try {
-            //UserModel(-1, username, password, 0)
             var user = UserModel(username, password, 0)
             var db = DataBaseHandler(this)
             db.insertData(user)
         } catch (e: Exception) {
             Toast.makeText(this, "Error Creating User", Toast.LENGTH_LONG).show()
         }
-        //DataBaseHelper(this, "user.db", null, 1)
     }
 
     fun login(username: String, password: String) {
@@ -53,17 +51,6 @@ class LogIn : AppCompatActivity() {
             return true
         } else if(password.length < 6) {
             Toast.makeText(this, "Password cannot be less than 6 characters", Toast.LENGTH_LONG).show()
-            return true
-        } else {
-            return false
-        }
-    }
-
-    fun userCheck(username : String): Boolean {
-        var helper = DataBaseHandler(applicationContext)
-        var db = helper.readableDatabase
-        var query = db.rawQuery("Select * from " + USER_DATABASE + " where " + COLUMN_ID + " = " + username, null)
-        if (query == query.isNull()) {
             return true
         } else {
             return false
