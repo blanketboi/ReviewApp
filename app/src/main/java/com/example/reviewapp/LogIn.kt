@@ -32,6 +32,7 @@ class LogIn : AppCompatActivity() {
             var user = UserModel(username, password, 0)
             var db = DataBaseHandler(this)
             db.insertData(user)
+            //TODO: set active user & go to main menu
         } catch (e: Exception) {
             Toast.makeText(this, "Error Creating User", Toast.LENGTH_LONG).show()
         }
@@ -40,8 +41,7 @@ class LogIn : AppCompatActivity() {
     fun login(username: String, password: String) {
         if (emptyLogin(username, password)) {
             return
-        }
-
+        } //TODO: set active user & go to main menu
 
     }
 
@@ -58,7 +58,7 @@ class LogIn : AppCompatActivity() {
     }
 
     private fun guestLogin() {
-
+        //TODO: go to main menu
     }
 
 }

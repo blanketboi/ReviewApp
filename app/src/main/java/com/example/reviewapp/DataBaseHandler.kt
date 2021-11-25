@@ -71,6 +71,8 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, USER_DAT
         return mUser
     }
 
+    //TODO: take username to delete row
+    //TODO: update reviews with "Deleted User"
     fun deleteUser() {
         val db = this.writableDatabase
         db.delete(USER_DATABASE, "$COLUMN_ID =?", arrayOf(id.toString()))

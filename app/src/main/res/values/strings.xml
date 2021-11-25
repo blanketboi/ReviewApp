@@ -8,5 +8,9 @@
     <string name="exists">This account already exists, please login or use a different Username</string>
     <string name="guest">Guest</string>
     <string name="guestText">Or browse as a Guest</string>
-    <string name="welcomeMessage">Welcome back!</string>
+    <string name="welcomeMessage">Welcome </string>
+    <string name="sugguestions">Places you may want to go</string>
+    <string name="user">Guest</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>

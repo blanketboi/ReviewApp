@@ -3,8 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/drawable/profile.xml" value="0.5703125" />
+        <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/drawable/star.xml" value="0.3828125" />
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/activity_login.xml" value="0.3307291666666667" />
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/draw_header.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/draw_menu.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/menu/nav_menu.xml" value="0.5541666666666667" />
         <entry key="app/src/main/res/layout/activity_log_in.xml" value="0.3632246376811594" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3632246376811594" />
       </map>

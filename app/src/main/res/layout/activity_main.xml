@@ -6,14 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@android:color/transparent"/>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/draw_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/nav_menu" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/welcomeMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="52dp"
-        android:layout_marginTop="76dp"
         android:text="@string/welcomeMessage"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:paddingRight="5dp"
+        android:fontFamily="@font/uber_font_bold"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toStartOf="@+id/user"
+        app:layout_constraintTop_toTopOf="@+id/user" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/user"
+        android:fontFamily="@font/uber_font_bold"
+        android:textSize="18dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginRight="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -27,6 +63,15 @@
         app:layout_constraintTop_toTopOf="parent"
         android:scrollbars="none"
         android:orientation="vertical"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sugguestions"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/userList"
+        app:layout_constraintStart_toStartOf="@+id/userList" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
