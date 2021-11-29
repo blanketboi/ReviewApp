@@ -14,30 +14,28 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         lateinit var toggle : ActionBarDrawerToggle
-        var user = findViewById<TextView>(R.id.user)
+        val user = findViewById<TextView>(R.id.user)
         val menu = findViewById<ImageButton>(R.id.menu)
-
+        val navUser = findViewById<TextView>(R.id.navHeaderName)
+        val log = findViewById<TextView>(R.id.login)
         val drawerLayout : DrawerLayout = findViewById(R.id.menu)
         val navView : NavigationView = findViewById(R.id.navView)
 
-        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+        menu.setOnClickListener{drawerLayout}
 
         if (logedIn) {
             user.text = username
+            navUser.text = username
+            log.text = "Logout"
         } else {
             user.text = "Guest"
+            navUser.text = "Guest"
+            log.text = "Login"
         }
 
     }
 
-//    fun setUser(username : String, logedIn : Boolean) {
-//        if (logedIn) {
-//            user.text = username
-//        } else {
-//            user.text = "Guest"
-//        }
-//    }
-
     //TODO: get active username
+    //TODO: call top 4 restaurants in recyclerView
 
 }
