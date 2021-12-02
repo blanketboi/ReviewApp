@@ -10,8 +10,12 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import java.lang.Exception
+import kotlin.math.log
 
 class LogIn : AppCompatActivity() {
+
+    val database = DataBaseHandler(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -23,16 +27,17 @@ class LogIn : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.password).toString()
 
         create.setOnClickListener { createUser(username, password) }
-        login.setOnClickListener { login(username, password) }
+        login.setOnClickListener { login(username, password)  }
         guest.setOnClickListener { guestLogin() }
+
+
 
     }
 
     private fun createUser(username: String, password: String) {
         try {
-            var user = UserModel(username, password, 0)
-            var db = DataBaseHandler(this)
-            db.insertData(user)
+            var user = UserModel(id = 0, username, password, xp = 0)
+            database.insertData(user)
             //TODO: set active user & go to main menu
         } catch (e: Exception) {
             Toast.makeText(this, "Error Creating User", Toast.LENGTH_LONG).show()
@@ -40,9 +45,24 @@ class LogIn : AppCompatActivity() {
     }
 
     fun login(username: String, password: String) {
-        if (emptyLogin(username, password)) {
-            return
-        } //TODO: set active user & go to main menu
+
+            var userArray = database.userList()
+            var i = 0
+            for (e in userArray) {
+                if (userArray[i].username == username && userArray[i].password == password) {
+                    var name = userArray[i].username
+                    var logedIn : Boolean = true
+                    val main = Intent(this, MainActivity::class.java).apply {
+                        putExtra("username", name)
+                        putExtra("logedIn", logedIn)
+                    }
+                    startActivity(main)
+                } else {
+                    i+=1
+                }
+
+        }
+    //TODO: set active user & go to main menu
 
     }
 
@@ -59,7 +79,11 @@ class LogIn : AppCompatActivity() {
     }
 
     private fun guestLogin() {
-        val intent = startActivity(Intent(this, MainActivity::class.java))
+        var logedIn : String = "true"
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra("username", "Guest")
+            putExtra("logedIn", logedIn)
+        }
         startActivity(intent)
         //TODO: go to main menu
     }

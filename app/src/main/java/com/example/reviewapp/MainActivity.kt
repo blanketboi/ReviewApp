@@ -18,12 +18,15 @@ class MainActivity : AppCompatActivity() {
         val menu = findViewById<ImageButton>(R.id.menu)
         val navUser = findViewById<TextView>(R.id.navHeaderName)
         val log = findViewById<TextView>(R.id.login)
-        val drawerLayout : DrawerLayout = findViewById(R.id.menu)
+        //val drawerLayout : DrawerLayout = findViewById(R.id.menu)
         val navView : NavigationView = findViewById(R.id.navView)
 
-        menu.setOnClickListener{drawerLayout}
+       // menu.setOnClickListener{drawerLayout}
+/*
+        val username = intent.getStringExtra("username").toString()
+        val logedIn = intent.getStringExtra("logedIn").toString()
 
-        if (logedIn) {
+        if (logedIn == "true") {
             user.text = username
             navUser.text = username
             log.text = "Logout"
@@ -32,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             navUser.text = "Guest"
             log.text = "Login"
         }
-
+*/
     }
 
     //TODO: get active username

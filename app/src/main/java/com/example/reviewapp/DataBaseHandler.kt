@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
 import java.security.AccessControlContext
+import java.util.ArrayList
 
 val USER_DATABASE = "USER_TABLE"
 val COLUMN_ID = "ID"
@@ -30,7 +31,7 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, USER_DAT
         var cv = ContentValues()
         cv.put(COLUMN_USERNAME, user.username)
         cv.put(COLUMN_PASSWORD, user.password)
-        cv.put(COLUMN_XP, user.XP)
+        cv.put(COLUMN_XP, user.xp)
         var result = db.insert(USER_DATABASE, null, cv)
         if (result == -1.toLong()) {
             Toast.makeText(context, "Error creating database", Toast.LENGTH_SHORT).show()
@@ -39,43 +40,36 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, USER_DAT
         }
     }
 
-    fun userList(): MutableList<UserModel> {
+    fun userList(): ArrayList<UserModel> {
+        val userList: ArrayList<UserModel> = ArrayList()
         val sql = "select * from $USER_DATABASE"
         val db = this.readableDatabase
-        val storeUserModel = arrayListOf<UserModel>()
         val cursor = db.rawQuery(sql, null)
         if (cursor.moveToFirst()) {
             do {
-                val id = Integer.parseInt(cursor.getString(0))
-                val username = cursor.getString(1)
-                val password = cursor.getString(2)
-                val xp = Integer.parseInt(cursor.getString(3))
-                storeUserModel.add(UserModel(username, password, xp))
+                val id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID))
+                val username = cursor.getString(cursor.getColumnIndex(COLUMN_USERNAME))
+                val password = cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD))
+                val xp = cursor.getInt(cursor.getColumnIndex(COLUMN_XP))
+
+                val user = UserModel(
+                    id = id,
+                    username = username,
+                    password = password,
+                    xp = xp
+                )
+                userList.add(user)
             } while (cursor.moveToNext())
         }
         cursor.close()
-        return storeUserModel
-    }
-
-    fun findUser(username: String) : UserModel? {
-        val query = "SELECT * FROM $USER_DATABASE WHERE $COLUMN_USERNAME = $username"
-        val db = this.writableDatabase
-        var mUser = UserModel? = null
-        val cursor = db.rawQuery(query, null)
-        if (cursor.moveToFirst()) {
-            val id = Integer.parseInt(cursor.getString(0))
-            val username = cursor.getString(1)
-            mUser = UserModel()
-        }
-        cursor.close()
-        return mUser
+        return userList
     }
 
     //TODO: take username to delete row
     //TODO: update reviews with "Deleted User"
-    fun deleteUser() {
-        val db = this.writableDatabase
-        db.delete(USER_DATABASE, "$COLUMN_ID =?", arrayOf(id.toString()))
-        db.close()
-    }
+//    fun deleteUser() {
+//        val db = this.writableDatabase
+//        db.delete(USER_DATABASE, "$COLUMN_ID =?", arrayOf(id.toString()))
+//        db.close()
+//    }
 }
