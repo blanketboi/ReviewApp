@@ -10,8 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ReviewApp">
         <activity
-            android:name=".MainActivity"
+            android:name=".Account"
             android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.NoActionBar" />
         <activity
             android:name=".LogIn"
             android:exported="true">

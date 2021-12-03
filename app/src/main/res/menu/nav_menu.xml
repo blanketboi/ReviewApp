@@ -6,19 +6,25 @@
     <item
         android:id="@+id/navHome"
         android:icon="@drawable/home"
-        android:title="Home" />
+        android:title="@string/home" />
 
     <item
         android:id="@+id/navList"
         android:icon="@drawable/search"
-        android:title="Restaurant Search" />
+        android:title="@string/restaurant_search" />
 
-    <item android:title="Profile">
+    <item android:title="@string/profile">
         <menu>
+
             <item
-                android:id="@+id/login"
+                android:id="@+id/account"
+                android:icon="@drawable/account"
+                android:title="@string/account" />
+
+            <item
+                android:id="@+id/loginOut"
                 android:icon="@drawable/login"
-                android:title="Login" />
+                android:title="@string/login" />
         </menu>
     </item>
 
