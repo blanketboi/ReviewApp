@@ -30,6 +30,7 @@ val RESTAURANT_DATABASE = "RESTAURANT_TABLE"
 val COLUMN_RESTAURANT_ID = "ID"
 val COLUMN_RESTAURANT_NAME = "NAME"
 val COLUMN_RESTAURANT_DESCRIPTION = "DESCRIPTION"
+val COLUMN_CUISINE = "CUISINE"
 val COLUMN_EATIN = "EATIN"
 val COLUMN_DELIVERY = "DELIVERY"
 
@@ -42,7 +43,7 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, USER_DAT
             "CREATE TABLE " + RATING_DATABASE + " (" + COLUMN_RATING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_USER_ID + " INTEGER FOREIGN KEY, " + COLUMN_RESTAURANT_ID + " INTEGER FOREIGN KEY, " + COLUMN_SCORE + " INT, " + COLUMN_TITLE + " TEXT, " + COLUMN_DESCRIPTION + " TEXT)"
 
         val createRestaurantTable =
-            "CREATE TABLE " + RESTAURANT_DATABASE + " (" + COLUMN_RESTAURANT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_RESTAURANT_NAME + " TEXT, " + COLUMN_RESTAURANT_DESCRIPTION + " TEXT, " + COLUMN_EATIN + " INT, " + COLUMN_DELIVERY + " INT)"
+            "CREATE TABLE " + RESTAURANT_DATABASE + " (" + COLUMN_RESTAURANT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_RESTAURANT_NAME + " TEXT, " + COLUMN_RESTAURANT_DESCRIPTION + " TEXT, " + COLUMN_CUISINE + " TEXT, " + COLUMN_EATIN + " INT, " + COLUMN_DELIVERY + " INT)"
 
         db?.execSQL(createUserTable)
         db?.execSQL(createRatingTable)
@@ -56,17 +57,44 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, USER_DAT
         onCreate(db)
     }
 
-    fun insertData(user: UserModel) {
+    fun insertUser(user: UserModel) {
         val db = this.writableDatabase
-        var cv = ContentValues()
+        val cv = ContentValues()
         cv.put(COLUMN_USERNAME, user.username)
         cv.put(COLUMN_PASSWORD, user.password)
         cv.put(COLUMN_XP, user.xp)
-        var result = db.insert(USER_DATABASE, null, cv)
+        val result = db.insert(USER_DATABASE, null, cv)
         if (result == -1.toLong()) {
             Toast.makeText(context, "Error creating database", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "User Created", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun getUserID(username : String, password : String) : Int {
+        val db = this.writableDatabase
+        val sql = "SELECT $COLUMN_USER_ID from $USER_DATABASE where $COLUMN_USERNAME = " username " and $COLUMN_PASSWORD = " password
+        val cursor = db.rawQuery(sql, null)
+        var id : Int = 0
+        if (cursor.moveToFirst()) {
+            id = cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID))
+        }
+        return id
+    }
+
+    fun insertRating(rating: RatingModel) {
+        val db = this.writableDatabase
+        val cv = ContentValues()
+        cv.put(COLUMN_USER_ID, rating.userID)
+        cv.put(COLUMN_RESTAURANT_ID, rating.restaurantID)
+        cv.put(COLUMN_SCORE, rating.score)
+        cv.put(COLUMN_TITLE, rating.title)
+        cv.put(COLUMN_DESCRIPTION, rating.description)
+        val result = db.insert(RATING_DATABASE, null, cv)
+        if (result == -1.toLong()) {
+            Toast.makeText(context, "Error creating database", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Review Posted", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -96,6 +124,38 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, USER_DAT
         return userList
     }
 
+    //TODO: where restaurant
+    //TODO: where user
+    @SuppressLint("Range")
+    fun ratingList(): ArrayList<RatingModel> {
+        val ratingList: ArrayList<RatingModel> = ArrayList()
+        val sql = "select * from $RATING_DATABASE"
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(sql, null)
+        if (cursor.moveToFirst()) {
+            do {
+                val id = cursor.getInt(cursor.getColumnIndex(COLUMN_RATING_ID))
+                val userID = cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID))
+                val restaurantID = cursor.getInt(cursor.getColumnIndex(COLUMN_RESTAURANT_ID))
+                val score = cursor.getInt(cursor.getColumnIndex(COLUMN_SCORE))
+                val title = cursor.getString(cursor.getColumnIndex(COLUMN_TITLE))
+                val description = cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION))
+
+                val rating = RatingModel(
+                    id = id,
+                    userID = userID,
+                    restaurantID = restaurantID,
+                    score = score,
+                    title = title,
+                    description = description
+                )
+                ratingList.add(rating)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        return ratingList
+    }
+
     @SuppressLint("Range")
     fun restaurantList(): ArrayList<RestaurantModel> {
         val restaurantList: ArrayList<RestaurantModel> = ArrayList()
@@ -106,7 +166,8 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, USER_DAT
             do {
                 val id = cursor.getInt(cursor.getColumnIndex(COLUMN_RESTAURANT_ID))
                 val title = cursor.getString(cursor.getColumnIndex(COLUMN_RESTAURANT_NAME))
-                val description = cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION))
+                val description = cursor.getString(cursor.getColumnIndex(COLUMN_RESTAURANT_DESCRIPTION))
+                val cuisine = cursor.getString(cursor.getColumnIndex(COLUMN_CUISINE))
                 val eatIn = cursor.getInt(cursor.getColumnIndex(COLUMN_EATIN))
                 val delivery = cursor.getInt(cursor.getColumnIndex(COLUMN_DELIVERY))
 
@@ -114,6 +175,7 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, USER_DAT
                     id = id,
                     title = title,
                     description = description,
+                    cuisine = cuisine,
                     eatIn = eatIn,
                     delivery = delivery
                 )
@@ -126,9 +188,9 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, USER_DAT
 
     //TODO: take username to delete row
     //TODO: update reviews with "Deleted User"
-//    fun deleteUser() {
-//        val db = this.writableDatabase
-//        db.delete(USER_DATABASE, "$COLUMN_ID =?", arrayOf(id.toString()))
-//        db.close()
-//    }
+    fun deleteUser(id : Int) {
+        val db = this.writableDatabase
+        db.delete(USER_DATABASE, "$COLUMN_USER_ID =?", arrayOf(id.toString()))
+        db.close()
+    }
 }
