@@ -6,5 +6,6 @@ class RestaurantModel (
     var id : Int,
     var title : String,
     var description : String,
+    var cuisine : String,
     var eatIn : Int,
     var delivery : Int)
