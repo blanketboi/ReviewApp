@@ -1,16 +1,12 @@
 package com.example.reviewapp
 
-import android.content.Context
 import android.content.Intent
-import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import java.lang.Exception
-import kotlin.math.log
+import kotlin.Exception
 
 class LogIn : AppCompatActivity() {
 
@@ -36,32 +32,36 @@ class LogIn : AppCompatActivity() {
 
     private fun createUser(username: String, password: String) {
         try {
-            var user = UserModel(id = 0, username, password, xp = 0)
-            database.insertData(user)
+            val user = UserModel(id = 0, username, password, xp = 0)
+            database.insertUser(user)
             //TODO: set active user & go to main menu
+
         } catch (e: Exception) {
             Toast.makeText(this, "Error Creating User", Toast.LENGTH_LONG).show()
         }
     }
 
     fun login(username: String, password: String) {
-
-            var userArray = database.userList()
-            var i = 0
-            for (e in userArray) {
-                if (userArray[i].username == username && userArray[i].password == password) {
-                    var name = userArray[i].username
-                    var logedIn : Boolean = true
-                    val main = Intent(this, MainActivity::class.java).apply {
-                        putExtra("username", name)
-                        putExtra("logedIn", logedIn)
+            try {
+                var userArray = database.userList()
+                var i = 0
+                for (e in userArray) {
+                    if (userArray[i].username == username && userArray[i].password == password) {
+                        var name = userArray[i].username
+                        var logedIn : Boolean = true
+                        val main = Intent(this, MainActivity::class.java).apply {
+                            putExtra("username", name)
+                            putExtra("logedIn", logedIn)
+                        }
+                        startActivity(main)
+                    } else {
+                        i+=1
                     }
-                    startActivity(main)
-                } else {
-                    i+=1
                 }
+            } catch (e : Exception) {
+                Toast.makeText(this, "Incorrect password or user does not exist", Toast.LENGTH_LONG).show()
+            }
 
-        }
     //TODO: set active user & go to main menu
 
     }
