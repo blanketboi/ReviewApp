@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ReviewApp">
         <activity
+            android:name=".RestaurantView"
+            android:exported="false" />
+        <activity
+            android:name=".WriteReview"
+            android:exported="false" />
+        <activity
             android:name=".Account"
             android:exported="false" />
         <activity
