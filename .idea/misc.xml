@@ -5,17 +5,23 @@
       <map>
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/drawable/home.xml" value="0.3651041666666667" />
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/drawable/menu.xml" value="0.5526041666666667" />
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/drawable/profile.xml" value="0.5703125" />
+        <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/drawable/review.xml" value="0.4185185185185185" />
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/drawable/star.xml" value="0.3828125" />
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/activity_account.xml" value="0.4925925925925926" />
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/activity_login.xml" value="0.3307291666666667" />
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/activity_restaurant_view.xml" value="0.2608915906788247" />
+        <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/activity_restaurant_search.xml" value="0.5364583333333334" />
+        <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/activity_restaurant_view.xml" value="0.5364583333333334" />
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/activity_write_review.xml" value="0.33" />
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/draw_header.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/draw_menu.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/fragment_blank.xml" value="0.2608915906788247" />
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/fragment_write_review.xml" value="0.5364583333333334" />
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/list_item.xml" value="0.5364583333333334" />
+        <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/restaurant_row_layout.xml" value="0.5364583333333334" />
+        <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/review_row.xml" value="0.5364583333333334" />
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/layout/row_layout.xml" value="0.5" />
         <entry key="..\:/Users/benst/OneDrive/Documents/University/Year 3/CS-306 Writing Mobile Apps/ReviewApp/app/src/main/res/menu/nav_menu.xml" value="0.5541666666666667" />
         <entry key="app/src/main/res/layout/activity_log_in.xml" value="0.3632246376811594" />

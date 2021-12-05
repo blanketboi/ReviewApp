@@ -26,8 +26,6 @@ class LogIn : AppCompatActivity() {
         login.setOnClickListener { login(username, password)  }
         guest.setOnClickListener { guestLogin() }
 
-
-
     }
 
     private fun createUser(username: String, password: String) {
@@ -35,7 +33,14 @@ class LogIn : AppCompatActivity() {
             val user = UserModel(id = 0, username, password, xp = 0)
             database.insertUser(user)
             //TODO: set active user & go to main menu
-
+            val id = database.getUserID(username, password)
+            val logedIn : String = "true"
+            val main = Intent(this, MainActivity::class.java).apply {
+                putExtra("username", username)
+                putExtra("logedIn", logedIn)
+                putExtra("id", id)
+            }
+            startActivity(main)
         } catch (e: Exception) {
             Toast.makeText(this, "Error Creating User", Toast.LENGTH_LONG).show()
         }
@@ -47,11 +52,13 @@ class LogIn : AppCompatActivity() {
                 var i = 0
                 for (e in userArray) {
                     if (userArray[i].username == username && userArray[i].password == password) {
-                        var name = userArray[i].username
-                        var logedIn : Boolean = true
+                        val username = userArray[i].username
+                        val id = database.getUserID(username, password)
+                        val logedIn : String = "true"
                         val main = Intent(this, MainActivity::class.java).apply {
-                            putExtra("username", name)
+                            putExtra("username", username)
                             putExtra("logedIn", logedIn)
+                            putExtra("id", id)
                         }
                         startActivity(main)
                     } else {
@@ -61,17 +68,14 @@ class LogIn : AppCompatActivity() {
             } catch (e : Exception) {
                 Toast.makeText(this, "Incorrect password or user does not exist", Toast.LENGTH_LONG).show()
             }
-
-    //TODO: set active user & go to main menu
-
     }
 
     private fun emptyLogin(username: String, password: String) : Boolean {
         if(username.isEmpty()) {
             Toast.makeText(this, "Username cannot be empty", Toast.LENGTH_LONG).show()
             return true
-        } else if(password.length < 6) {
-            Toast.makeText(this, "Password cannot be less than 6 characters", Toast.LENGTH_LONG).show()
+        } else if(password.isEmpty()) {
+            Toast.makeText(this, "Password cannot be empty", Toast.LENGTH_LONG).show()
             return true
         } else {
             return false
@@ -79,13 +83,16 @@ class LogIn : AppCompatActivity() {
     }
 
     private fun guestLogin() {
-        var logedIn : String = "true"
-        val intent = Intent(this, MainActivity::class.java).apply {
-            putExtra("username", "Guest")
-            putExtra("logedIn", logedIn)
+        try {
+            val logedIn : String = "false"
+            val intent = Intent(this, MainActivity::class.java).apply {
+                putExtra("logedIn", logedIn)
+            }
+            startActivity(intent)
+        } catch (e : Exception) {
+            Toast.makeText(this, "Error with Guest", Toast.LENGTH_LONG).show()
         }
-        startActivity(intent)
-        //TODO: go to main menu
+
     }
 
 }

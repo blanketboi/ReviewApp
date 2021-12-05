@@ -6,4 +6,154 @@
     android:layout_height="match_parent"
     tools:context=".RestaurantView">
 
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/restCuisine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Cuisine"
+        app:layout_constraintEnd_toEndOf="@+id/restImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/restImage"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="4dp"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restCuisine" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/restTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:text="Title"
+        android:textSize="18sp"
+        app:fontFamily="@font/uber_bold_font"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restImage" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/restRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="4dp"
+        android:text="rating"
+        app:layout_constraintEnd_toStartOf="@+id/appCompatImageView"
+        app:layout_constraintTop_toBottomOf="@+id/restImage" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/green_star"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restImage" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/restDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="8dp"
+        android:text="description"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restTitle" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/restReviewButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/review"
+        app:layout_constraintEnd_toEndOf="@+id/restDescription"
+        app:layout_constraintTop_toBottomOf="@+id/restDescription" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restReviewButton">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/restEatIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/eat_in"
+        android:paddingEnd="5dp"
+        app:layout_constraintStart_toStartOf="@+id/restTitle"
+        app:layout_constraintTop_toBottomOf="@+id/restDescription" />
+
+    <TextView
+        android:id="@+id/restDelivers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/delivers"
+        android:paddingEnd="5dp"
+        app:layout_constraintStart_toStartOf="@+id/restEatIn"
+        app:layout_constraintTop_toBottomOf="@+id/restEatIn" />
+
+    <ImageView
+        android:id="@+id/eatYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/yes"
+        app:layout_constraintStart_toEndOf="@+id/restEatIn"
+        app:layout_constraintTop_toBottomOf="@+id/restDescription" />
+
+    <ImageView
+        android:id="@+id/eatNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/no"
+        app:layout_constraintStart_toEndOf="@+id/restEatIn"
+        app:layout_constraintTop_toBottomOf="@+id/restDescription" />
+
+    <ImageView
+        android:id="@+id/deliversYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="43dp"
+        android:src="@drawable/yes"
+        app:layout_constraintStart_toEndOf="@+id/restDelivers"
+        app:layout_constraintTop_toBottomOf="@+id/restDescription" />
+
+    <ImageView
+        android:id="@+id/deliversNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="43dp"
+        android:src="@drawable/no"
+        app:layout_constraintStart_toEndOf="@+id/restDelivers"
+        app:layout_constraintTop_toBottomOf="@+id/restDescription" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

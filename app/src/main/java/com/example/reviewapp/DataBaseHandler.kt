@@ -6,8 +6,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
-import java.security.AccessControlContext
-import java.util.ArrayList
+import kotlin.collections.ArrayList
 
 //UserModel
 val USER_DATABASE = "USER_TABLE"
@@ -71,15 +70,45 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, USER_DAT
         }
     }
 
-    fun getUserID(username : String, password : String) : Int {
+    fun getUserID(username: String, password: String): Int {
         val db = this.writableDatabase
-        val sql = "SELECT $COLUMN_USER_ID from $USER_DATABASE where $COLUMN_USERNAME = " username " and $COLUMN_PASSWORD = " password
+        val sql =
+            "SELECT $COLUMN_USER_ID from $USER_DATABASE where $COLUMN_USERNAME = " + username + " and $COLUMN_PASSWORD = " + password
         val cursor = db.rawQuery(sql, null)
-        var id : Int = 0
-        if (cursor.moveToFirst()) {
-            id = cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID))
-        }
-        return id
+        return cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID))
+    }
+
+    fun getUserXP(userID : Int) : Int {
+        val db = this.writableDatabase
+        val sql = "SELECT $COLUMN_XP from $USER_DATABASE where $COLUMN_USER_ID = " + userID
+        val cursor = db.rawQuery(sql, null)
+        return cursor.getInt(cursor.getColumnIndex(COLUMN_XP))
+    }
+
+    fun setUserXP(userID : Int, userXP : Int) {
+        val db = this.writableDatabase
+        val sql = "UPDATE $USER_DATABASE set $COLUMN_XP = " + userXP + " where $COLUMN_USER_ID = " + userID
+        db.rawQuery(sql, null)
+    }
+
+    fun getRestaurant(restaurantID : Int) : RestaurantModel {
+        val db = this.writableDatabase
+        val sql = "SELECT * from $RESTAURANT_DATABASE where $COLUMN_RESTAURANT_ID = " + restaurantID
+        val cursor = db.rawQuery(sql, null)
+
+        val title = cursor.getString(cursor.getColumnIndex(COLUMN_RESTAURANT_NAME))
+        val description = cursor.getString(cursor.getColumnIndex(COLUMN_RESTAURANT_DESCRIPTION))
+        val cuisine = cursor.getString(cursor.getColumnIndex(COLUMN_CUISINE))
+        val eatIn = cursor.getInt(cursor.getColumnIndex(COLUMN_EATIN))
+        val delivery = cursor.getInt(cursor.getColumnIndex(COLUMN_DELIVERY))
+
+        return RestaurantModel(
+            id = restaurantID,
+            title = title,
+            description = description,
+            cuisine = cuisine,
+            eatIn = eatIn,
+            delivery = delivery)
     }
 
     fun insertRating(rating: RatingModel) {
@@ -186,11 +215,56 @@ class DataBaseHandler(var context: Context) : SQLiteOpenHelper(context, USER_DAT
         return restaurantList
     }
 
-    //TODO: take username to delete row
-    //TODO: update reviews with "Deleted User"
+    fun restaurantSearch(textBar : String, eatIn : Int, delivery : Int) : ArrayList<RestaurantModel> {
+        var textSQL : String = ""
+        var eatInSQL : String = ""
+        var deliverySQL : String = ""
+        var sql : String = ""
+        if (textBar.isNotEmpty()){
+            textSQL = "$COLUMN_RESTAURANT_NAME LIKE " + textBar + "%"
+            if (eatIn == 1) {
+                eatInSQL = "$COLUMN_EATIN = " + 1
+                if (delivery == 1) {
+                    deliverySQL = "$COLUMN_DELIVERY = " + 1
+                    sql = "SELECT * from $RESTAURANT_DATABASE where " + textSQL + " and " + eatInSQL + " and " + deliverySQL
+                } else {
+                    sql = "SELECT * from $RESTAURANT_DATABASE"
+                }
+            }
+        }
+        val restaurantList : ArrayList<RestaurantModel> = ArrayList()
+        val db = this.readableDatabase
+        val cursor = db.rawQuery(sql, null)
+        if (cursor.moveToFirst()) {
+            do {
+                val id = cursor.getInt(cursor.getColumnIndex(COLUMN_RESTAURANT_ID))
+                val title = cursor.getString(cursor.getColumnIndex(COLUMN_RESTAURANT_NAME))
+                val description = cursor.getString(cursor.getColumnIndex(COLUMN_RESTAURANT_DESCRIPTION))
+                val cuisine = cursor.getString(cursor.getColumnIndex(COLUMN_CUISINE))
+                val eatIn = cursor.getInt(cursor.getColumnIndex(COLUMN_EATIN))
+                val delivery = cursor.getInt(cursor.getColumnIndex(COLUMN_DELIVERY))
+
+                val restaurant = RestaurantModel(
+                    id = id,
+                    title = title,
+                    description = description,
+                    cuisine = cuisine,
+                    eatIn = eatIn,
+                    delivery = delivery
+                )
+                restaurantList.add(restaurant)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        return restaurantList
+
+    }
+
     fun deleteUser(id : Int) {
         val db = this.writableDatabase
         db.delete(USER_DATABASE, "$COLUMN_USER_ID =?", arrayOf(id.toString()))
+        val sql = "UPDATE $RATING_DATABASE set $COLUMN_USER_ID = NULL where $COLUMN_USER_ID = " + id
+        db.rawQuery(sql, null)
         db.close()
     }
 }

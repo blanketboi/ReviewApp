@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ReviewApp">
         <activity
+            android:name=".RestaurantSearch"
+            android:exported="false" />
+        <activity
             android:name=".RestaurantView"
             android:exported="false" />
         <activity

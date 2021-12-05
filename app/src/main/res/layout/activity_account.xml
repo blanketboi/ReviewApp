@@ -7,7 +7,7 @@
     tools:context=".Account">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/user"
+        android:id="@+id/userTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -23,7 +23,7 @@
         android:text="@string/progressDef"
         android:layout_marginBottom="6dp"
         app:layout_constraintBottom_toTopOf="@+id/xpBar"
-        app:layout_constraintStart_toStartOf="@+id/user" />
+        app:layout_constraintStart_toStartOf="@+id/userTitle" />
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/xpBar"
@@ -32,27 +32,40 @@
         android:layout_height="20dp"
         android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/user"
-        app:layout_constraintTop_toBottomOf="@+id/user" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userTitle" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/xpBar" />
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/xpBar"
+        tools:layout_editor_absoluteX="0dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/xpBar" />
+
+    </FrameLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="48dp"
         android:text="@string/deleteAccount"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

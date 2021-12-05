@@ -22,16 +22,16 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return items.size
     }
 
-    class RestaurantViewHolder constructor(itemView : View) : RecyclerView.ViewHolder(itemView) {
-
-        val restImage = itemView.restImage
-        val restTitle = itemView.restTitle
-        val restRating = itemView.restRating
-        val cuisine = itemView.cuisine
-
-        fun bind(restaurantModel: RestaurantModel) {
-
-            restTitle.setText()
-        }
-    }
+//    class RestaurantViewHolder constructor(itemView : View) : RecyclerView.ViewHolder(itemView) {
+//
+//        val restImage = itemView.restImage
+//        val restTitle = itemView.restTitle
+//        val restRating = itemView.restRating
+//        val cuisine = itemView.cuisine
+//
+//        fun bind(restaurantModel: RestaurantModel) {
+//
+//            restTitle.setText()
+//        }
+//    }
 }
